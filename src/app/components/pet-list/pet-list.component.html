@@ -1,0 +1,157 @@
+<section class="bg-white dark:bg-gray-900">
+  <div class="container mx-auto px-6 py-10">
+    <h1
+      class="text-center text-3xl font-semibold capitalize text-gray-800 dark:text-white lg:text-4xl"
+    >
+      Lista de mascotas
+    </h1>
+
+    <p class="mt-4 text-center text-gray-500 dark:text-gray-300 pb-16">
+      Apartado de pruebas para el listado de mascotas.
+    </p>
+
+    <form [formGroup]="formPet" class="px-2">
+      <div class="grid gap-6 mb-6 lg:grid-cols-4">
+        <div>
+          <label
+            for="name"
+            class="block mb-2 text-base font-medium text-gray-900"
+            >Nombre de la mascota</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5"
+            placeholder=""
+            [(ngModel)]="pet.name"
+            formControlName="name"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="age"
+            class="block mb-2 text-base font-medium text-gray-900"
+            >Edad de la mascota</label
+          >
+          <input
+            type="number"
+            id="age"
+            name="age"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5"
+            placeholder=""
+            [(ngModel)]="pet.age"
+            formControlName="age"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="description"
+            class="block mb-2 text-base font-medium text-gray-900"
+            >Descripción de la mascota</label
+          >
+          <textarea
+            type="text"
+            id="description"
+            name="description"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5"
+            placeholder=""
+            [(ngModel)]="pet.description"
+            formControlName="description"
+            required
+          ></textarea>
+        </div>
+      </div>
+    </form>
+
+    <div class="py-4 flex">
+      <div class="w-full text-left mx-auto">
+        <button
+          type="button"
+          (click)="onSavePet(pet)"
+          [disabled]="formPet.invalid"
+          class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"
+        >
+          Guardar
+        </button>
+        <button
+          type="button"
+          (click)="onUpdatePet(pet)"
+          [disabled]="formPet.invalid || noDataSelected"
+          class="border border-yellow-500 bg-yellow-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-600 focus:outline-none focus:shadow-outline"
+        >
+          Editar
+        </button>
+        <button
+          type="button"
+          (click)="onDeletePet(pet.idPet)"
+          [disabled]="formPet.invalid || noDataSelected || noDataTable"
+          class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+        >
+          Eliminar
+        </button>
+        <button
+          type="button"
+          (click)="onClear()"
+          class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
+        >
+          Limpiar
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="datatable.length > 0" class="overflow-x-auto">
+      <div class="flex items-center justify-center">
+        <div class="w-full lg:w-5/6">
+          <div class="bg-white lg:shadow-md rounded my-6">
+            <table class="min-w-max w-full table-auto">
+              <thead>
+                <tr
+                  class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+                >
+                  <th class="py-3 px-6 text-left">Seleccionar</th>
+                  <th class="py-3 px-6 text-left">Nombre</th>
+                  <th class="py-3 px-6 text-center">Edad</th>
+                  <th class="py-3 px-6 text-center">Descripción</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-600 text-sm font-light">
+                <tr
+                  *ngFor="let pet of datatable"
+                  class="border-b border-gray-200 font-medium"
+                >
+                  <td class="py-3 px-3 text-left">
+                    <div class="flex items-center px-2">
+                      <input
+                        type="button"
+                        value="Seleccionar Mascota"
+                        class="py-3 px-3 rounded border-2 hover:bg-gray-200 cursor-pointer"
+                        (click)="onSetData(pet)"
+                      />
+                    </div>
+                  </td>
+                  <td class="py-3 px-6 text-left">
+                    <div class="flex items-center">
+                      <span>{{ pet.name }}</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-6 text-center">
+                    <span
+                      class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs"
+                      >{{ pet.age }}</span
+                    >
+                  </td>
+                  <td class="py-3 px-6 text-center">
+                    <span>{{ pet.description }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
